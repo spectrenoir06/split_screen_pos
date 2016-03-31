@@ -12,10 +12,7 @@ function love.load()
 		vector(1280,720),
 		vector(0,720)
 	}
-
-	vert = {quad[1].x, quad[1].y, quad[2].x, quad[2].y, quad[3].x, quad[3].y, quad[4].x, quad[4].y}
-
-	center = quad[3] / 2
+	center = vector(1280/2, 720/2)
 
 	-- angle = vector(windowWidth * windowHeight, 0)
 	rad = math.rad(180)
@@ -26,16 +23,11 @@ function love.load()
 		-- vector(windowWidth/2 - angle.x, windowHeight/2 - angle.y),
 		-- vector(windowWidth/2 + angle.x, windowHeight/2 + angle.y)
 	}
-	intersection = vector()
-
-	intersection.x = math.cos(rad + math.pi/2) * (windowWidth/4)
-	intersection.y = math.sin(rad + math.pi/2) * (windowHeight/4)
+	intersection = vector( math.cos(rad + math.pi/2) * (windowWidth/4), math.sin(rad + math.pi/2) * (windowHeight/4))
 
 	mode = 0
 
 	proj = vector()
-
-	buffer = {0,0,0,0}
 
 end
 
@@ -61,8 +53,6 @@ function love.draw()
 	love.graphics.circle('line', moy.x, moy.y,  5)
 
 	love.graphics.print("mode: "..mode, 10, 40)
-
-	love.graphics.line(buffer)
 
 
 end
