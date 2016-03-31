@@ -32,7 +32,6 @@ function love.load()
 end
 
 function love.draw()
-	love.graphics.polygon( "line", vert )
 	love.graphics.circle('line', center.x, center.y, 5)
 	love.graphics.line(windowWidth/2 + math.cos(rad) * windowWidth, windowHeight/2 - math.sin(rad) * windowHeight, windowWidth/2 - math.cos(rad) * windowWidth, windowHeight/2 + math.sin(rad) * windowHeight)                                         --line[1].x, line[1].y, line[2].x, line[2].y)
 	-- love.graphics.circle('line', center.x, center.y, windowHeight/2)
@@ -82,8 +81,8 @@ function love.update(dt)
 	end
 
 	moy = (vector(center.x + intersection.x, center.y + intersection.y) + proj) / 2
-
-	table.insert(buffer, moy.x)
-	table.insert(buffer, moy.y)
+	--
+	-- table.insert(buffer, moy.x)
+	-- table.insert(buffer, moy.y)
 
 end
