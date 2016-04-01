@@ -17,15 +17,11 @@ function love.load()
 	-- angle = vector(windowWidth * windowHeight, 0)
 	rad = math.rad(180)
 
-	-- angle:rotated(rad)
-
-	line = {             -- split line
-		-- vector(windowWidth/2 - angle.x, windowHeight/2 - angle.y),
-		-- vector(windowWidth/2 + angle.x, windowHeight/2 + angle.y)
-	}
-	intersection = vector( math.cos(rad + math.pi/2) * (windowWidth/4), math.sin(rad + math.pi/2) * (windowHeight/4))
+	intersection = vector(math.cos(rad + math.pi/2) * (windowWidth/4), math.sin(rad + math.pi/2) * (windowHeight/4))
 
 	mode = 0
+
+	buffer = {0,0,0,0}
 
 	proj = vector()
 
@@ -45,6 +41,8 @@ function love.draw()
 	-- love.graphics.line(0, 0, windowWidth, windowHeight)
 	-- love.graphics.line(windowWidth, 0, 0, windowHeight)
 
+	love.graphics.line(buffer)
+
 	love.graphics.circle('line', center.x + intersection.x, center.y + intersection.y, 5)
 	love.graphics.circle('line', center.x - intersection.x, center.y - intersection.y, 5)
 	love.graphics.circle('line', proj.x, proj.y,  5)
@@ -58,12 +56,6 @@ end
 
 function love.update(dt)
 	rad = (rad + (math.pi/4 * dt))
-	-- angle = angle:rotated((math.pi/40 * dt))
-
-	line = {             -- split line
-		-- vector(windowWidth/2 - angle.x, windowHeight/2 - angle.y),
-		-- vector(windowWidth/2 + angle.x, windowHeight/2 + angle.y)
-	}
 
 	intersection.x = math.cos(rad) * (windowWidth/4)
 	intersection.y = -math.sin(rad) * (windowHeight/4)
@@ -75,14 +67,17 @@ function love.update(dt)
 	elseif mode == 2 then
 		proj = vector(center.x + ((windowWidth/4) / math.tan(rad)), windowHeight/4)
 	elseif mode == 3 then
-		proj = vector(windowWidth/4, center.y + (( windowHeight/4)*math.tan(rad)))
+		proj = vector(windowWidth/4, center.y + ((windowHeight/4)*math.tan(rad)))
 	elseif mode == 4 then
 		proj = vector(center.x - ((windowWidth/4) / math.tan(rad)), 3*windowHeight/4)
 	end
 
-	moy = (vector(center.x + intersection.x, center.y + intersection.y) + proj) / 2
-	--
-	-- table.insert(buffer, moy.x)
-	-- table.insert(buffer, moy.y)
+	moy = (
+			vector(center.x + intersection.x, center.y + intersection.y)
+			+ proj
+	) / 2
+
+	table.insert(buffer, moy.x)
+	table.insert(buffer, moy.y)
 
 end
